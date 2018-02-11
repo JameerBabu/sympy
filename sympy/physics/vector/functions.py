@@ -4,7 +4,7 @@ from sympy.core.backend import (sympify, diff, sin, cos, Matrix, symbols,
                                 Function, S, Symbol)
 from sympy import integrate, trigsimp
 from sympy.core.compatibility import reduce
-from .vector import Vector, _check_vector
+from vector import Vector, _check_vector
 from .frame import CoordinateSym, _check_frame
 from .dyadic import Dyadic
 from .printing import vprint, vsprint, vpprint, vlatex, init_vprinting
@@ -280,6 +280,7 @@ def kinematic_equations(speeds, coords, rot_type, rot_order=''):
         w1, w2, w3 = speeds
         s1, s2, s3 = [sin(q1), sin(q2), sin(q3)]
         c1, c2, c3 = [cos(q1), cos(q2), cos(q3)]
+
         if rot_type.lower() == 'body':
             if rot_order == '123':
                 return [q1d - (w1 * c3 - w2 * s3) / c2, q2d - w1 * s3 - w2 *
@@ -353,7 +354,7 @@ def kinematic_equations(speeds, coords, rot_type, rot_order=''):
                         c1 + w2 * s1, q3d - (w1 * s1 + w2 * c1) / s2]
             if rot_order == '323':
                 return [q1d - (w1 * c1 - w2 * s1) * c2 / s2 - w3, q2d - w1 *
-                        s1 - w2 * c1, q3d - (-w1 * c1 + w2 * s1) / s2]
+                            s1 - w2 * c1, q3d - (-w1 * c1 + w2 * s1) / s2]
     elif rot_type.lower() == 'quaternion':
         if rot_order != '':
             raise ValueError('Cannot have rotation order for quaternion')
